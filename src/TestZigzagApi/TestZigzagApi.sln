@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestZigzagApi", "TestZigzagApi\TestZigzagApi.csproj", "{7DA68561-AEDC-46E6-BDFF-75BE67E29181}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestZigzag.Core", "TestZigzag.Core\TestZigzag.Core.csproj", "{CC3746E6-D93A-458E-AF0B-C22C829B2B61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestZigzagApi.Business", "TestZigzagApi.Business\TestZigzagApi.Business.csproj", "{3489136B-098D-406E-85B3-B00C2F42609A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestZigzagApi.Data", "TestZigzagApi.Data\TestZigzagApi.Data.csproj", "{F1D1C229-30A2-44F5-9A6E-FDD4C5E34226}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DA68561-AEDC-46E6-BDFF-75BE67E29181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA68561-AEDC-46E6-BDFF-75BE67E29181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA68561-AEDC-46E6-BDFF-75BE67E29181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA68561-AEDC-46E6-BDFF-75BE67E29181}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC3746E6-D93A-458E-AF0B-C22C829B2B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3746E6-D93A-458E-AF0B-C22C829B2B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3746E6-D93A-458E-AF0B-C22C829B2B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3746E6-D93A-458E-AF0B-C22C829B2B61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3489136B-098D-406E-85B3-B00C2F42609A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3489136B-098D-406E-85B3-B00C2F42609A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3489136B-098D-406E-85B3-B00C2F42609A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3489136B-098D-406E-85B3-B00C2F42609A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1D1C229-30A2-44F5-9A6E-FDD4C5E34226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1D1C229-30A2-44F5-9A6E-FDD4C5E34226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1D1C229-30A2-44F5-9A6E-FDD4C5E34226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1D1C229-30A2-44F5-9A6E-FDD4C5E34226}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
