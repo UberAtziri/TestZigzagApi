@@ -3,7 +3,7 @@ import { logOut } from '../redux/slices/authSlice';
 import { commonConstants } from '../common/constants/commonConstants';
 
 export const axiosInstance = axios.create({
-	baseURL: commonConstants.BASE_URL || 'https://localhost:5001/',
+	baseURL: commonConstants.BASE_URL,
 	responseType: 'json'
 });
 

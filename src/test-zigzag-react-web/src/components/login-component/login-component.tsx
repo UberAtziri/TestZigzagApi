@@ -29,10 +29,6 @@ export const Login = () => {
 		}
 	};
 
-	const onFinishFailed = (errorInfo: any) => {
-		console.log('Failed:', errorInfo);
-	};
-
 	const clearErrors = () => {
 		if (loginErrorState) {
 			dispatch(setLoginErrorState(null));
@@ -66,7 +62,6 @@ export const Login = () => {
 					remember: true,
 				}}
 				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
 				autoComplete="off"
 				form={loginForm}
 			>
