@@ -19,6 +19,7 @@ namespace TestZigzagApi
     {
         private const string MondoDbSectionName = "MongoDatabase";
         private const string AuthOptionsSectionName = "AuthOptions";
+        private const string DefaultCorsPolicyName = "DefaultCors";
 
         public Startup(IConfiguration configuration)
         {
@@ -35,7 +36,7 @@ namespace TestZigzagApi
             
             services.AddCors(options =>
             {
-                options.AddPolicy(name: "Test",
+                options.AddPolicy(name: DefaultCorsPolicyName,
                     builder =>
                     {
                         builder.AllowAnyHeader();
@@ -72,7 +73,7 @@ namespace TestZigzagApi
             }));
 
             app.UseHttpsRedirection();
-            app.UseCors("Test");
+            app.UseCors(DefaultCorsPolicyName);
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

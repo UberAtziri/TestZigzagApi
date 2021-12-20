@@ -28,11 +28,8 @@ namespace TestZigzagApi.Controllers
         public async Task<AuthResponse> GetToken([FromQuery] LoginRegisterRequest request)
         {
             var token = await this.authService.Login(request.UserName, request.Password);
- 
-            return new AuthResponse
-            {
-                AccessToken = token
-            };
+
+            return new AuthResponse(token);
         }
     }
 }

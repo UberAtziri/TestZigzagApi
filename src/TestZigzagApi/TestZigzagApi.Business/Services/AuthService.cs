@@ -15,18 +15,18 @@ namespace TestZigzagApi.Business.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository userRepository;
         private readonly AuthOptions authOptions;
 
         public AuthService(IUserRepository userRepository, IOptions<AuthOptions> authOptions)
         {
-            _userRepository = userRepository;
+            this.userRepository = userRepository;
             this.authOptions = authOptions.Value;
         }
 
         public async Task<string> Login(string userName, string password)
         {
-            var user = await this._userRepository.IsExist(userName, password);
+            var user = await this.userRepository.IsExist(userName, password);
             if (user == null)
             {
                 throw new AuthFailedException(userName);
@@ -53,7 +53,7 @@ namespace TestZigzagApi.Business.Services
                 Password = password
             };
 
-            await this._userRepository.Create(model);
+            await this.userRepository.Create(model);
         }
     }
 }
