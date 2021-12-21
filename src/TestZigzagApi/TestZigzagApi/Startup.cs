@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -7,7 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TestZigzag.Core.Common;
 using TestZigzagApi.Business.Configuration;
+using TestZigzagApi.Configuration;
 using TestZigzagApi.Configuration.Authentication;
+using TestZigzagApi.Configuration.AutoMapper;
 using TestZigzagApi.Configuration.GraphQl;
 using TestZigzagApi.Configuration.Swagger;
 using TestZigzagApi.Data.Configuration;
@@ -17,10 +20,6 @@ namespace TestZigzagApi
 {
     public class Startup
     {
-        private const string MondoDbSectionName = "MongoDatabase";
-        private const string AuthOptionsSectionName = "AuthOptions";
-        private const string DefaultCorsPolicyName = "DefaultCors";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,12 +30,12 @@ namespace TestZigzagApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var mongoOptions = Configuration.GetSection(MondoDbSectionName).Get<MongoDatabaseOptions>();
-            var authOptions = Configuration.GetSection(AuthOptionsSectionName).Get<AuthOptions>();
+            var mongoOptions = Configuration.GetSection(ConfigurationConstants.MondoDbSectionName).Get<MongoDatabaseOptions>();
+            var authOptions = Configuration.GetSection(ConfigurationConstants.AuthOptionsSectionName).Get<AuthOptions>();
             
             services.AddCors(options =>
             {
-                options.AddPolicy(name: DefaultCorsPolicyName,
+                options.AddPolicy(name: ConfigurationConstants.DefaultCorsPolicyName,
                     builder =>
                     {
                         builder.AllowAnyHeader();
@@ -45,13 +44,17 @@ namespace TestZigzagApi
                     });
             });
 
-            services.Configure<AuthOptions>(Configuration.GetSection(AuthOptionsSectionName));
-            services.AddControllers();
+            services.Configure<AuthOptions>(Configuration.GetSection(ConfigurationConstants.AuthOptionsSectionName));
+            services.AddControllers().AddFluentValidation(s => 
+            { 
+                s.RegisterValidatorsFromAssemblyContaining<Startup>(); 
+            });;
             services.AddSwagger();
             services.AddCustomAuthentication(authOptions.Key);
             services.AddBusinessLayer();
             services.AddDataLayer(mongoOptions.ConnectionString, mongoOptions.DatabaseName);
             services.AddGraphQl();
+            services.AddConfiguredAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +76,7 @@ namespace TestZigzagApi
             }));
 
             app.UseHttpsRedirection();
-            app.UseCors(DefaultCorsPolicyName);
+            app.UseCors(ConfigurationConstants.DefaultCorsPolicyName);
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

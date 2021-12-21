@@ -22,6 +22,11 @@ namespace TestZigzagApi.Data.Repositories
             return await this.mongoCollection.Find(condition).ToListAsync();
         }
 
+        public async Task<List<TValue>> GetFieldValue<TValue>(Expression<Func<T, bool>> condition, Expression<Func<T, TValue>> fieldExpression)
+        {
+            return await this.mongoCollection.Find(condition).Project(fieldExpression).ToListAsync();
+        }
+
         public async Task DeleteAsync(Guid id)
         {
             await this.mongoCollection.DeleteOneAsync(f => f.Id == id);

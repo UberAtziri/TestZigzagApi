@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TestZigzag.Core.Common;
 using TestZigzagApi.Business.Services.Interfaces;
 using TestZigzagApi.Models;
-using TestZigzagApi.Models.Mappers;
 
 namespace TestZigzagApi.Controllers
 {
@@ -14,10 +16,12 @@ namespace TestZigzagApi.Controllers
     public class AnimeController : ControllerBase
     {
         private readonly IAnimeService animeService;
+        private readonly IMapper mapper;
         
-        public AnimeController(IAnimeService animeService)
+        public AnimeController(IAnimeService animeService, IMapper mapper)
         {
             this.animeService = animeService;
+            this.mapper = mapper;
         }
         
         [Authorize]
@@ -26,7 +30,7 @@ namespace TestZigzagApi.Controllers
         {
             var result = await this.animeService.GetAll();
 
-            return result.AllToAnimeResponse();
+            return result.Select(this.mapper.Map<AnimeResponse>).ToList();
         }
         
         [Authorize]
@@ -36,16 +40,16 @@ namespace TestZigzagApi.Controllers
         {
             var result = await this.animeService.GetByCategory(categoryName);
 
-            return result.AllToAnimeResponse();
+            return result.Select(this.mapper.Map<AnimeResponse>).ToList();
         }
 
         [Authorize]
         [HttpPost]
         public async Task<AnimeResponse> Create([FromBody] AnimeCreateRequest request)
         {
-            var result = await this.animeService.Create(request.ToAnimeDomain());
+            var result = await this.animeService.Create(this.mapper.Map<AnimeDomain>(request));
 
-            return result.ToAnimeResponse();
+            return this.mapper.Map<AnimeResponse>(result);
         }
         
         [Authorize]
@@ -70,9 +74,9 @@ namespace TestZigzagApi.Controllers
         [HttpPut]
         public async Task<AnimeResponse> Update([FromBody] AnimeUpdateRequest request)
         {
-            var result = await this.animeService.Update(request.ToAnimeDomain());
+            var result = await this.animeService.Update(this.mapper.Map<AnimeDomain>(request));
 
-            return result.ToAnimeResponse();
+            return this.mapper.Map<AnimeResponse>(result);
         }
     }
 }

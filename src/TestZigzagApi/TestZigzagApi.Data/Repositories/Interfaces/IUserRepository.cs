@@ -5,8 +5,8 @@ namespace TestZigzagApi.Data.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        Task Create(UserEntity userEntity);
+        Task CreateAsync(UserEntity userEntity);
 
-        Task<UserEntity> IsExist(string userName, string password);
+        Task<UserEntity> IsExistAsync(string userName, string password);
     }
 }
