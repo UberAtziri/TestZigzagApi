@@ -26,7 +26,7 @@ namespace TestZigzagApi.Business.Services
 
         public async Task<string> Login(string userName, string password)
         {
-            var user = await this.userRepository.IsExist(userName, password);
+            var user = await this.userRepository.IsExistAsync(userName, password);
             if (user == null)
             {
                 throw new AuthFailedException(userName);
@@ -37,7 +37,7 @@ namespace TestZigzagApi.Business.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, userName) }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = DateTime.UtcNow.AddDays(this.authOptions.ExpiredDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -53,7 +53,7 @@ namespace TestZigzagApi.Business.Services
                 Password = password
             };
 
-            await this.userRepository.Create(model);
+            await this.userRepository.CreateAsync(model);
         }
     }
 }
