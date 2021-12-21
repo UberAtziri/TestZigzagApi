@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TestZigzag.Core.Common;
 
@@ -48,6 +49,7 @@ namespace TestZigzagApi.Models.Mappers
                 ? default
                 : new AnimeDomain
                 {
+                    Id = Guid.Parse(request.Id), 
                     Name = request.Name,
                     Rating = request.Rating,
                     Description = request.Description,

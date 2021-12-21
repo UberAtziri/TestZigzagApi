@@ -47,11 +47,11 @@ namespace TestZigzagApi.Business.Services
 
         public async Task<IEnumerable<string>> GetCategories()
         {
-            var entities = await this.GetAll();
+            var categories = await this.animeRepository.GetFieldValue(
+                x => x.CategoryName != null,
+                y => y.CategoryName);
 
-            return entities
-                .Where(x => x.CategoryName != null)
-                .Select(x => x.CategoryName.ToLowerInvariant()).Distinct();
+            return categories.Select(x => x.ToLowerInvariant()).Distinct();
         }
 
         public async Task<IEnumerable<AnimeDomain>> GetByCategory(string categoryName)

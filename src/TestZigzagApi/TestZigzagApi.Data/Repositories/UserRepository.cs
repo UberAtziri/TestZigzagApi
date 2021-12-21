@@ -13,12 +13,12 @@ namespace TestZigzagApi.Data.Repositories
             this.mongoCollection = mongoCollection;
         }
 
-        public async Task Create(UserEntity userEntity)
+        public async Task CreateAsync(UserEntity userEntity)
         {
             await this.mongoCollection.InsertOneAsync(userEntity);
         }
 
-        public async Task<UserEntity> IsExist(string userName, string password)
+        public async Task<UserEntity> IsExistAsync(string userName, string password)
         {
             var filters = Builders<UserEntity>.Filter.And(
                 Builders<UserEntity>.Filter.Where(x => x.UserName == userName),
