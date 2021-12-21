@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using TestZigzag.Core.Common;
-using TestZigzagApi.Business.Mappers;
 using TestZigzagApi.Business.Services.Interfaces;
 using TestZigzagApi.Data.Entities;
 using TestZigzagApi.Data.Repositories.Interfaces;
@@ -13,31 +13,33 @@ namespace TestZigzagApi.Business.Services
     public class AnimeService : IAnimeService
     {
         private readonly IRepository<AnimeEntity> animeRepository;
+        private readonly IMapper mapper;
 
-        public AnimeService(IRepository<AnimeEntity> animeRepository)
+        public AnimeService(IRepository<AnimeEntity> animeRepository, IMapper mapper)
         {
             this.animeRepository = animeRepository;
+            this.mapper = mapper;
         }
 
         public async Task<List<AnimeDomain>> GetAll()
         {
             var entities = await this.animeRepository.GetAllAsync();
 
-            return entities.AllToAnimeDomain();
+            return entities.Select(this.mapper.Map<AnimeDomain>).ToList();
         }
 
         public async Task<AnimeDomain> Create(AnimeDomain domain)
         {
-            var created = await this.animeRepository.CreateAsync(domain.ToAnimeEntity());
+            var created = await this.animeRepository.CreateAsync(this.mapper.Map<AnimeEntity>(domain));
             
-            return created.ToAnimeDomain();
+            return this.mapper.Map<AnimeDomain>(created);
         }
 
         public async Task<AnimeDomain> Update(AnimeDomain animeDomain)
         {
-            var updated = await this.animeRepository.UpdateAsync(animeDomain.ToAnimeEntity());
+            var updated = await this.animeRepository.UpdateAsync(this.mapper.Map<AnimeEntity>(animeDomain));
 
-            return updated.ToAnimeDomain();
+            return this.mapper.Map<AnimeDomain>(updated);
         }
 
         public async Task Delete(Guid id)
@@ -65,7 +67,7 @@ namespace TestZigzagApi.Business.Services
                 .GetByFilter(x => x.CategoryName != null &&
                                   x.CategoryName.ToLowerInvariant() == categoryName.ToLowerInvariant());
 
-            return entities.AllToAnimeDomain();
+            return entities.Select(this.mapper.Map<AnimeDomain>);
         }
     }
 }

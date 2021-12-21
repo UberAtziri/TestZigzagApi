@@ -10,6 +10,7 @@ using TestZigzag.Core.Common;
 using TestZigzagApi.Business.Configuration;
 using TestZigzagApi.Configuration;
 using TestZigzagApi.Configuration.Authentication;
+using TestZigzagApi.Configuration.AutoMapper;
 using TestZigzagApi.Configuration.GraphQl;
 using TestZigzagApi.Configuration.Swagger;
 using TestZigzagApi.Data.Configuration;
@@ -53,6 +54,7 @@ namespace TestZigzagApi
             services.AddBusinessLayer();
             services.AddDataLayer(mongoOptions.ConnectionString, mongoOptions.DatabaseName);
             services.AddGraphQl();
+            services.AddConfiguredAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
