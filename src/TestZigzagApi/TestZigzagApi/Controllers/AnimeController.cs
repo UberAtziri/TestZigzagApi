@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -28,9 +27,9 @@ namespace TestZigzagApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<AnimeResponse>> GetAll()
         {
-            var result = await this.animeService.GetAll();
+            var result = await this.animeService.GetAllAsync();
 
-            return result.Select(this.mapper.Map<AnimeResponse>).ToList();
+            return this.mapper.Map<List<AnimeResponse>>(result);
         }
         
         [Authorize]
@@ -38,16 +37,16 @@ namespace TestZigzagApi.Controllers
         [Route("category")]
         public async Task<IEnumerable<AnimeResponse>> GetAll([FromQuery] string categoryName)
         {
-            var result = await this.animeService.GetByCategory(categoryName);
+            var result = await this.animeService.GetByCategoryAsync(categoryName);
 
-            return result.Select(this.mapper.Map<AnimeResponse>).ToList();
+            return this.mapper.Map<List<AnimeResponse>>(result);
         }
 
         [Authorize]
         [HttpPost]
         public async Task<AnimeResponse> Create([FromBody] AnimeCreateRequest request)
         {
-            var result = await this.animeService.Create(this.mapper.Map<AnimeDomain>(request));
+            var result = await this.animeService.CreateAsync(this.mapper.Map<AnimeDomain>(request));
 
             return this.mapper.Map<AnimeResponse>(result);
         }
@@ -57,7 +56,7 @@ namespace TestZigzagApi.Controllers
         [Route("/categories")]
         public async Task<IEnumerable<string>> GetCategories()
         {
-            return await this.animeService.GetCategories();
+            return await this.animeService.GetCategoriesAsync();
         }
 
         [Authorize]
@@ -65,7 +64,7 @@ namespace TestZigzagApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            await this.animeService.Delete(id);
+            await this.animeService.DeleteAsync(id);
 
             return Ok("Success");
         }
@@ -74,7 +73,7 @@ namespace TestZigzagApi.Controllers
         [HttpPut]
         public async Task<AnimeResponse> Update([FromBody] AnimeUpdateRequest request)
         {
-            var result = await this.animeService.Update(this.mapper.Map<AnimeDomain>(request));
+            var result = await this.animeService.UpdateAsync(this.mapper.Map<AnimeDomain>(request));
 
             return this.mapper.Map<AnimeResponse>(result);
         }
