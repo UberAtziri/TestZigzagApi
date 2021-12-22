@@ -21,53 +21,53 @@ namespace TestZigzagApi.Business.Services
             this.mapper = mapper;
         }
 
-        public async Task<List<AnimeDomain>> GetAll()
+        public async Task<List<AnimeDomain>> GetAllAsync()
         {
             var entities = await this.animeRepository.GetAllAsync();
 
-            return entities.Select(this.mapper.Map<AnimeDomain>).ToList();
+            return this.mapper.Map<List<AnimeDomain>>(entities);
         }
 
-        public async Task<AnimeDomain> Create(AnimeDomain domain)
+        public async Task<AnimeDomain> CreateAsync(AnimeDomain domain)
         {
             var created = await this.animeRepository.CreateAsync(this.mapper.Map<AnimeEntity>(domain));
             
             return this.mapper.Map<AnimeDomain>(created);
         }
 
-        public async Task<AnimeDomain> Update(AnimeDomain animeDomain)
+        public async Task<AnimeDomain> UpdateAsync(AnimeDomain animeDomain)
         {
             var updated = await this.animeRepository.UpdateAsync(this.mapper.Map<AnimeEntity>(animeDomain));
 
             return this.mapper.Map<AnimeDomain>(updated);
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await this.animeRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<string>> GetCategories()
+        public async Task<IEnumerable<string>> GetCategoriesAsync()
         {
-            var categories = await this.animeRepository.GetFieldValue(
+            var categories = await this.animeRepository.GetFieldValueAsync(
                 x => x.CategoryName != null,
                 y => y.CategoryName);
 
             return categories.Select(x => x.ToLowerInvariant()).Distinct();
         }
 
-        public async Task<IEnumerable<AnimeDomain>> GetByCategory(string categoryName)
+        public async Task<IEnumerable<AnimeDomain>> GetByCategoryAsync(string categoryName)
         {
             if (categoryName == null)
             {
-                return await this.GetAll();
+                return await this.GetAllAsync();
             }
 
             var entities = await this.animeRepository
-                .GetByFilter(x => x.CategoryName != null &&
+                .GetByFilterAsync(x => x.CategoryName != null &&
                                   x.CategoryName.ToLowerInvariant() == categoryName.ToLowerInvariant());
 
-            return entities.Select(this.mapper.Map<AnimeDomain>);
+            return this.mapper.Map<List<AnimeDomain>>(entities);
         }
     }
 }

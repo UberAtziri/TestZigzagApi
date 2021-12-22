@@ -2,7 +2,7 @@
 {
     public static class ConfigurationConstants
     {
-        public const string MondoDbSectionName = "MongoDatabase";
+        public const string MongoDbSectionName = "MongoDatabase";
         
         public const string AuthOptionsSectionName = "AuthOptions";
         

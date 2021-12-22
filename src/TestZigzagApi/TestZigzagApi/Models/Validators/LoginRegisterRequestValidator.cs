@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using TestZigzagApi.Models.Validators.Constants;
 
 namespace TestZigzagApi.Models.Validators
 {
@@ -8,13 +9,11 @@ namespace TestZigzagApi.Models.Validators
         {
             RuleFor(x => x.Password)
                 .NotEmpty()
-                .NotNull()
-                .MaximumLength(50);
+                .MaximumLength(LoginRegisterValidationConstants.MaximumPasswordLength);
             
             RuleFor(x => x.UserName)
                 .NotEmpty()
-                .NotNull()
-                .MaximumLength(50);
+                .MaximumLength(LoginRegisterValidationConstants.MaximumUserNameLength);
         }
     }
 }

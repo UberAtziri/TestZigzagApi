@@ -24,7 +24,7 @@ namespace TestZigzagApi.Business.Services
             this.authOptions = authOptions.Value;
         }
 
-        public async Task<string> Login(string userName, string password)
+        public async Task<string> LoginAsync(string userName, string password)
         {
             var user = await this.userRepository.IsExistAsync(userName, password);
             if (user == null)
@@ -45,7 +45,7 @@ namespace TestZigzagApi.Business.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task Register(string userName, string password)
+        public async Task RegisterAsync(string userName, string password)
         {
             var model = new UserEntity
             {

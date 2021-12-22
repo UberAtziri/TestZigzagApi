@@ -20,14 +20,14 @@ namespace TestZigzagApi.Controllers
         [Route("register")]
         public async Task Register([FromBody] LoginRegisterRequest request)
         {
-            await this.authService.Register(request.UserName, request.Password);
+            await this.authService.RegisterAsync(request.UserName, request.Password);
         }
         
         [HttpGet]
         [Route("token")]
         public async Task<AuthResponse> GetToken([FromQuery] LoginRegisterRequest request)
         {
-            var token = await this.authService.Login(request.UserName, request.Password);
+            var token = await this.authService.LoginAsync(request.UserName, request.Password);
 
             return new AuthResponse(token);
         }

@@ -9,7 +9,7 @@ namespace TestZigzagApi.Business.GraphQl.Mutations
     {
         public async Task<AnimeDomain> CreateAnime(AnimeDomain domain, [Service] IAnimeService animeService)
         {
-            var result = await animeService.Create(domain);
+            var result = await animeService.CreateAsync(domain);
 
             return result;
         }

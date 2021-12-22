@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation;
+using TestZigzagApi.Models.Validators.Constants;
 
 namespace TestZigzagApi.Models.Validators
 {
@@ -9,34 +10,30 @@ namespace TestZigzagApi.Models.Validators
         {
             RuleFor(x => x.Id)
                 .NotEmpty()
-                .NotNull()
                 .Must(x => Guid.TryParse(x, out _))
-                .WithMessage("Id should be a valid GUID.");
+                .WithMessage(AnimeValidationConstants.InvalidGuidIdMessage);
 
             RuleFor(x => x.Description)
                 .NotEmpty()
-                .NotNull()
-                .MaximumLength(500);
+                .MaximumLength(AnimeValidationConstants.MaximumDescriptionLength);
 
             RuleFor(x => x.Name)
                 .NotEmpty()
-                .NotNull()
-                .MaximumLength(50);
+                .MaximumLength(AnimeValidationConstants.MaximumNameLength);
 
             RuleFor(x => x.Rating)
-                .GreaterThanOrEqualTo(0);
+                .GreaterThanOrEqualTo(AnimeValidationConstants.RatingGreaterOrEqual);
 
             RuleFor(x => x.NumberOfEpisodes)
-                .GreaterThanOrEqualTo(0);
+                .GreaterThanOrEqualTo(AnimeValidationConstants.NumberOfEpisodesGreaterOrEqual);
 
             RuleFor(x => x.CategoryName)
                 .NotEmpty()
-                .NotNull()
-                .MaximumLength(30);
+                .MaximumLength(AnimeValidationConstants.MaximumCategoryLength);
 
             RuleFor(x => x.ReleaseDate)
                 .Must(x => !x.Equals(default))
-                .WithMessage("Release date can not be empty.");
+                .WithMessage(AnimeValidationConstants.EmptyReleaseDateMessage);
         }
     }
 }

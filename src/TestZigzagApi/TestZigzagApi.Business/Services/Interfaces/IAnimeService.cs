@@ -7,16 +7,16 @@ namespace TestZigzagApi.Business.Services.Interfaces
 {
     public interface IAnimeService
     {
-        Task<List<AnimeDomain>> GetAll();
+        Task<List<AnimeDomain>> GetAllAsync();
 
-        Task<AnimeDomain> Create(AnimeDomain domain);
+        Task<AnimeDomain> CreateAsync(AnimeDomain domain);
 
-        Task<AnimeDomain> Update(AnimeDomain animeDomain);
+        Task<AnimeDomain> UpdateAsync(AnimeDomain animeDomain);
 
-        Task Delete(Guid id);
+        Task DeleteAsync(Guid id);
 
-        Task<IEnumerable<string>> GetCategories();
+        Task<IEnumerable<string>> GetCategoriesAsync();
 
-        Task<IEnumerable<AnimeDomain>> GetByCategory(string categoryName);
+        Task<IEnumerable<AnimeDomain>> GetByCategoryAsync(string categoryName);
     }
 }

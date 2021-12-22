@@ -17,12 +17,12 @@ namespace TestZigzagApi.Data.Repositories
             this.mongoCollection = mongoCollection;
         }
 
-        public async Task<List<T>> GetByFilter(Expression<Func<T, bool>> condition)
+        public async Task<List<T>> GetByFilterAsync(Expression<Func<T, bool>> condition)
         {
             return await this.mongoCollection.Find(condition).ToListAsync();
         }
 
-        public async Task<List<TValue>> GetFieldValue<TValue>(Expression<Func<T, bool>> condition, Expression<Func<T, TValue>> fieldExpression)
+        public async Task<List<TValue>> GetFieldValueAsync<TValue>(Expression<Func<T, bool>> condition, Expression<Func<T, TValue>> fieldExpression)
         {
             return await this.mongoCollection.Find(condition).Project(fieldExpression).ToListAsync();
         }
