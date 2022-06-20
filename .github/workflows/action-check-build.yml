@@ -6,8 +6,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src/TestZigzagApi
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET Core SDK 5.0.x
