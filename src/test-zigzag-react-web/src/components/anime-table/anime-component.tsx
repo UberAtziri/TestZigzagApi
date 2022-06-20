@@ -21,7 +21,7 @@ const columns: ColumnsType<Anime> = [
 	{
 		title: 'Description',   
 		dataIndex: 'description',
-		key: 'description'
+		key: 'description',
 		sorter: (a, b) => sortEverything(a.description, b.description)
 	},
 	{
