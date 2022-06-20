@@ -16,12 +16,12 @@ const columns: ColumnsType<Anime> = [
 		title: 'Name',
 		dataIndex: 'name',
 		key: 'name',
-		sorter: (a, b) => sortEverything(a.name, b.name),
+		sorter: (a, b) => sortEverything(a.name, b.name),  
 	},
 	{
-		title: 'Description',
+		title: 'Description',   
 		dataIndex: 'description',
-		key: 'description',
+		key: 'description', 
 		sorter: (a, b) => sortEverything(a.description, b.description)
 	},
 	{
