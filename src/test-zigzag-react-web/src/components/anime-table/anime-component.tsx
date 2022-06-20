@@ -19,7 +19,7 @@ const columns: ColumnsType<Anime> = [
 		sorter: (a, b) => sortEverything(a.name, b.name),  
 	},
 	{
-		title: 'Description',
+		title: 'Description',  
 		dataIndex: 'description',
 		key: 'description',
 		sorter: (a, b) => sortEverything(a.description, b.description)
