@@ -17,9 +17,9 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Setup Node.js 16.x
-          uses: actions/setup-node@v1
-            with:
-              node-version: '16.x'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
       - name: Install dependencies .NET
         run: dotnet restore
       - name: Build .NET
