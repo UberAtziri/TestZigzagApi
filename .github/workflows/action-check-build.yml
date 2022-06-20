@@ -1,4 +1,4 @@
-name: build
+name: Build .NET Api
 
 on:
   pull_request:
